@@ -47,15 +47,19 @@ namespace Leonardo_Sanna_TestWeek1
                         CercaProdottoAlimentarePerCodice();
                         break;
                     case 7:
+                        Console.Clear();
                         CercaProdottoTecnologicoPerMarca();
                         break;
                     case 8:
+                        Console.Clear();
                         VisualizzaProdottiTecnologiciNuovi();
                         break;
                     case 9:
+                        Console.Clear();
                         VisualizzaAlimentariScadutiOggi();
                         break;
                     case 10:
+                        Console.Clear();
                         VisualizzaProdottiscadutiDaGiorni(3);
                         break;
                     case 0:
@@ -63,17 +67,23 @@ namespace Leonardo_Sanna_TestWeek1
                         Console.WriteLine("Arrivederci");
                         break;
                     default:
+                        Console.Clear();
                         Console.WriteLine("Scelta errata.");
                         break;
                 }
             }
         }
-
+        /// <summary>
+        /// Visualizza i prodotti scaduti oggi
+        /// </summary>
         private static void VisualizzaAlimentariScadutiOggi()
         {
             VisualizzaProdottiscadutiDaGiorni(0);
         }
-
+        /// <summary>
+        /// Visualizza solo i prodotti scaduti da n giorni
+        /// </summary>
+        /// <param name="giorni">int giorni dalla scadenza del prodotto</param>
         private static void VisualizzaProdottiscadutiDaGiorni(int giorni)
         {
             var prodotti = repoPA.GetAll();
@@ -91,7 +101,9 @@ namespace Leonardo_Sanna_TestWeek1
                 }
             }
         }
-
+        /// <summary>
+        /// Visualizza solo i prodotti tecnologici nuovi
+        /// </summary>
         private static void VisualizzaProdottiTecnologiciNuovi()
         {
             var prodotti = repoPT.GetAll();
@@ -105,7 +117,9 @@ namespace Leonardo_Sanna_TestWeek1
                 }
             }
         }
-
+        /// <summary>
+        /// Cerca un prodotto tecnologico per marca
+        /// </summary>
         private static void CercaProdottoTecnologicoPerMarca()
         {
             string marca;
@@ -123,7 +137,9 @@ namespace Leonardo_Sanna_TestWeek1
             }
             
         }
-
+        /// <summary>
+        /// Cerca un prodotto alimentare per il codice
+        /// </summary>
         private static void CercaProdottoAlimentarePerCodice()
         {
             string codice;
@@ -144,7 +160,9 @@ namespace Leonardo_Sanna_TestWeek1
                 Console.WriteLine("---------------------------------------------------------------------------------------");
             }
         }
-
+        /// <summary>
+        /// Aggiunge un nuovo prodotto alimentare
+        /// </summary>
         private static void AggiungiProdottoAlimentare()
         {
             string codice, data, descrizione;
@@ -176,7 +194,9 @@ namespace Leonardo_Sanna_TestWeek1
                 Console.WriteLine(datat);
             } while (!repoPA.Aggiungi(new ProdottoAlimentare(codice, prezzo, descrizione, quantita, datat)));
         }
-
+        /// <summary>
+        /// Aggiungi un nuovo prodotto tecnologico
+        /// </summary>
         private static void AggiungiProdottoTecnologico()
         {
             string codice, descrizione, marca, stato;
@@ -199,6 +219,7 @@ namespace Leonardo_Sanna_TestWeek1
                 stato = Console.ReadLine();
                 while (cicla)
                 {
+                    stato = stato.ToLower();
                     if (stato == "nuovo")
                     {
                         statob = true;
@@ -218,7 +239,9 @@ namespace Leonardo_Sanna_TestWeek1
                 }
             } while (!repoPT.Aggiungi(new ProdottoTecnologico(codice, prezzo, descrizione, marca, statob)));
         }
-
+        /// <summary>
+        /// Mostra tutti i prodotti
+        /// </summary>
         private static void VisualizzaTuttiIProdotti()
         {
             List<ProdottoAlimentare> prodottiPA = new List<ProdottoAlimentare>();
@@ -235,7 +258,9 @@ namespace Leonardo_Sanna_TestWeek1
             VisualizzaAlimentari();
             VisualizzaTecnologici();
         }
-
+        /// <summary>
+        /// Mostra a schermo tutti i Prodotti Alimentari
+        /// </summary>
         public static void VisualizzaAlimentari()
         {
 
@@ -254,7 +279,9 @@ namespace Leonardo_Sanna_TestWeek1
                 }
             }
         }
-
+        /// <summary>
+        /// Mostra a schermo tutti i Prodotti Tecnologici
+        /// </summary>
         public static void VisualizzaTecnologici()
         {
             if (repoPT.IsVuota())
@@ -272,6 +299,10 @@ namespace Leonardo_Sanna_TestWeek1
                 }
             }
         }
+        /// <summary>
+        /// Visualizza il menu e restituisce la scelta dell'utente
+        /// </summary>
+        /// <returns>int scelta dell'utente</returns>
         private static int Menu()
         {
             Console.WriteLine("---------------MENU----------");
@@ -287,7 +318,6 @@ namespace Leonardo_Sanna_TestWeek1
             Console.WriteLine("10.Visualizza tutti i Prodotti Alimentari che scadono tra meno di tre giorni");
             Console.WriteLine("\n0.Exit");
             Console.WriteLine("\nInserisci la tua scelta:");
-            //int sceltaUtente=int.Parse(Console.ReadLine());
             int sceltaUtente;
             while (!(int.TryParse(Console.ReadLine(), out sceltaUtente)))
             {

@@ -23,7 +23,9 @@ namespace Leonardo_Sanna_TestWeek1.Entities
             DataDiScadenza = dataDiScadenza;
             GiorniAllaScadenza = DataDiScadenza.Subtract(DateTime.UtcNow).Days;
         }
-
+        /// <summary>
+        /// Mostra le informazioni del prodotto alimentare
+        /// </summary>
         public override void Informazioni()
         {
             base.Informazioni();

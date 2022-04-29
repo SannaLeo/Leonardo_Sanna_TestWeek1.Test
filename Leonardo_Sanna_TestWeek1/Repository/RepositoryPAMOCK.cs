@@ -10,12 +10,17 @@ namespace Leonardo_Sanna_TestWeek1.Repository
 {
     internal class RepositoryPAMOCK : IRepositoryPA
     {
+        //lista globale popolata per avere degli elementi all'avvio del programma
         static private List<ProdottoAlimentare> prodottiA = new List<ProdottoAlimentare>() 
         { 
             new ProdottoAlimentare("123",12,"melaa",2,new DateTime(2023,1,1)),
             new ProdottoAlimentare("122",12.22,"pera",4,new DateTime(2023,2,1))
         };
-
+        /// <summary>
+        /// Restituisce il prodotto alimentare con l'id specificato
+        /// </summary>
+        /// <param name="id">stringa dell'id</param>
+        /// <returns>ProdottoAlimentare item se viene trovato, null altrimenti</returns>
         public ProdottoAlimentare GetTByCode(string id)
         {
             foreach (ProdottoAlimentare itemA in prodottiA)
@@ -27,7 +32,11 @@ namespace Leonardo_Sanna_TestWeek1.Repository
             }
             return null;
         }
-
+        /// <summary>
+        /// Aggiunge un prodotto alimentare alla lista
+        /// </summary>
+        /// <param name="item">Un item di tipo <code>Prodotto Alimentare</code></param>
+        /// <returns>true se è andato tutto a buon fine</returns>
         public bool Aggiungi(ProdottoAlimentare item)
         {
             if(item == null || GetTByCode(item.Codice) != null)
@@ -45,12 +54,18 @@ namespace Leonardo_Sanna_TestWeek1.Repository
             prodottiA.Add(item);
             return true;
         }
-
+        /// <summary>
+        /// Restituisce la lista 
+        /// </summary>
+        /// <returns>Lista<ProdottoAlimentare> list se il file contiene degli elementi, List<ProdottoAlimentare> [] altrimenti</returns>
         public List<ProdottoAlimentare> GetAll()
         {
             return prodottiA;
         }
-
+        /// <summary>
+        /// Restituisce tutti gli elementi che scadono tra meno di tre giorni
+        /// </summary>
+        /// <returns>Lista<ProdottoAlimentare> list contenente i prodotti quasi scaduti, List<ProdottoAlimentare> [] altrimenti</returns>
         public List<ProdottoAlimentare> GetPAAlmostExp()
         {
             List<ProdottoAlimentare> filteredPA = new List<ProdottoAlimentare>();
@@ -63,7 +78,10 @@ namespace Leonardo_Sanna_TestWeek1.Repository
             }
             return filteredPA;
         }
-
+        /// <summary>
+        /// Restituisce tutti gli elementi scaduti
+        /// </summary>
+        /// <returns>Lista<ProdottoAlimentare> list contenente i prodotti scaduti, List<ProdottoAlimentare> [] altrimenti</returns>
         public List<ProdottoAlimentare> GetPAExp()
         {
             List<ProdottoAlimentare> filteredPA = new List<ProdottoAlimentare>();
@@ -76,7 +94,10 @@ namespace Leonardo_Sanna_TestWeek1.Repository
             }
             return filteredPA;
         }
-
+        /// <summary>
+        /// Controlla se la lista di elementi è vuota
+        /// </summary>
+        /// <returns>true se la lista è vuota, false altrimenti</returns>
         public bool IsVuota()
         {
             return (prodottiA.Count == 0);

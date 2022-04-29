@@ -20,7 +20,9 @@ namespace Leonardo_Sanna_TestWeek1.Entities
             Marca = marca;
             IsNew = isnew;
         }
-
+        /// <summary>
+        /// Mostra le informazioni del prodotto tecnologico
+        /// </summary>
         public override void Informazioni()
         {
             base.Informazioni();

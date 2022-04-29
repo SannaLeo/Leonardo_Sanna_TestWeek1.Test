@@ -28,7 +28,5 @@ namespace Leonardo_Sanna_TestWeek1.Entities
         {
             Console.WriteLine($"Codice\t\t{Codice}\t prezzo\t\t{Prezzo.ToString("0.00")}\t\tdescrizione\t{Descrizione}\t");
         }
-
-
     }
 }
