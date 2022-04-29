@@ -21,7 +21,7 @@ namespace Leonardo_Sanna_TestWeek1.Repository
         /// </summary>
         /// <param name="id">stringa dell'id</param>
         /// <returns>ProdottoAlimentare item se viene trovato, null altrimenti</returns>
-        public ProdottoAlimentare GetTByCode(string id)
+        public ProdottoAlimentare? GetTByCode(string id)
         {
             foreach (ProdottoAlimentare itemA in prodottiA)
             {

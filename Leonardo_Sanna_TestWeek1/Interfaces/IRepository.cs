@@ -12,7 +12,7 @@ namespace Leonardo_Sanna_TestWeek1.Interfaces
         /// Restituisce tutti gli elementi della lista
         /// </summary>
         /// <returns>Una lista di tipo T</returns>
-        List<T> GetAll();
+        List<T>? GetAll();
         /// <summary>
         /// Aggiunge un item alla repository
         /// </summary>
@@ -29,7 +29,7 @@ namespace Leonardo_Sanna_TestWeek1.Interfaces
         /// </summary>
         /// <param name="id">id dell'elemento da cercare</param>
         /// <returns>L'elemento di tipo T con quel'id se è presente, null altrimenti</returns>
-        T GetTByCode(string id);
+        T? GetTByCode(string id);
 
 
     }

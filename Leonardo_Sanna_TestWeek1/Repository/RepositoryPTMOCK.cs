@@ -15,8 +15,8 @@ namespace Leonardo_Sanna_TestWeek1.Repository
             new ProdottoTecnologico("1223",1233,"pc","Dell",true),
             new ProdottoTecnologico("1344",234,"pc","HP",false)
         };
-
-        public ProdottoTecnologico GetTByCode(string id)
+        
+        public ProdottoTecnologico? GetTByCode(string id)
         {
             foreach (ProdottoTecnologico itemT in prodottiT)
             {

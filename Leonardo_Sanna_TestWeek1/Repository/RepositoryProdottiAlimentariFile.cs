@@ -28,7 +28,6 @@ namespace Leonardo_Sanna_TestWeek1.Repository
                 sw.WriteLine($"{item.Codice},{item.Prezzo},{item.QuantitaInMagazzino},{item.DataDiScadenza},{item.Descrizione}");
                 return true;
             }
-            return false;
         }
         /// <summary>
         /// Restituisce la lista presa da file
@@ -72,10 +71,10 @@ namespace Leonardo_Sanna_TestWeek1.Repository
                         if (!DateTime.TryParse(prodotto[3], out data))
                         {
                             Console.WriteLine("Errore nel caricamento da file ");
-                            return list; Console.WriteLine("Errore nel caricamento da file ");
+                            return list; 
                         }
                         descrizione = prodotto[4];
-                        //aggiiungo alla lista
+                        //aggiungo alla lista
                         list.Add(new ProdottoAlimentare(codice,prezzo,descrizione,quantitam,data));
                     }
                 }
@@ -121,7 +120,7 @@ namespace Leonardo_Sanna_TestWeek1.Repository
         /// </summary>
         /// <param name="id">stringa dell'id</param>
         /// <returns>ProdottoAlimentare item se viene trovato, null altrimenti</returns>
-        public ProdottoAlimentare GetTByCode(string id)
+        public ProdottoAlimentare? GetTByCode(string id)
         {
             var list = GetAll();
             foreach (var item in list)

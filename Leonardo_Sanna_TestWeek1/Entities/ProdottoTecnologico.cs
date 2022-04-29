@@ -11,10 +11,7 @@ namespace Leonardo_Sanna_TestWeek1.Entities
         public string Marca { get; set; }
         public bool  IsNew{ get; set; }
 
-        public ProdottoTecnologico()
-        {
-
-        }
+        
         public ProdottoTecnologico(string codice, double prezzo, string descrizione, string marca, bool isnew ) : base(codice, prezzo, descrizione)
         {
             Marca = marca;

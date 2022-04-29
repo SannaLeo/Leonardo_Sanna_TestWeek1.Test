@@ -12,18 +12,15 @@ namespace Leonardo_Sanna_TestWeek1.Entities
         public string Descrizione { get; private set; }
         public double Prezzo { get; private set; }
 
-        public Prodotto()
-        {
-
-        }
-
         public Prodotto(string codice, double prezzo, string descrizione)
         {
             Codice = codice;
             Prezzo = prezzo;
             Descrizione = descrizione;
         }
-
+        /// <summary>
+        /// Restituisce le info dei prodotti
+        /// </summary>
         public virtual void Informazioni() 
         {
             Console.WriteLine($"Codice\t\t{Codice}\t prezzo\t\t{Prezzo.ToString("0.00")}\t\tdescrizione\t{Descrizione}\t");

@@ -12,10 +12,6 @@ namespace Leonardo_Sanna_TestWeek1.Entities
         public DateTime DataDiScadenza { get; private set; }
         public int GiorniAllaScadenza { get; private set; }
 
-        public ProdottoAlimentare() 
-        {
-        
-        }
 
         public ProdottoAlimentare(string codice, double prezzo, string descrizione, int quantita, DateTime dataDiScadenza) : base(codice, prezzo, descrizione)
         {

@@ -13,11 +13,11 @@ namespace Leonardo_Sanna_TestWeek1.Interfaces
         /// Restituisce tutti gli elementi scaduti
         /// </summary>
         /// <returns>Lista<ProdottoAlimentare> list contenente i prodotti scaduti, List<ProdottoAlimentare> [] altrimenti</returns>
-        List<ProdottoAlimentare> GetPAExp();
+        List<ProdottoAlimentare>? GetPAExp();
         /// <summary>
         /// Restituisce tutti gli elementi quasi scaduti
         /// </summary>
         /// <returns>Lista<ProdottoAlimentare> list contenente i prodotti scaduti, List<ProdottoAlimentare> [] altrimenti</returns>
-        List<ProdottoAlimentare> GetPAAlmostExp();
+        List<ProdottoAlimentare>? GetPAAlmostExp();
     }
 }

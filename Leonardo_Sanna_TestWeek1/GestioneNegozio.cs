@@ -87,6 +87,11 @@ namespace Leonardo_Sanna_TestWeek1
         private static void VisualizzaProdottiscadutiDaGiorni(int giorni)
         {
             var prodotti = repoPA.GetAll();
+            if(prodotti == null)
+            {
+                Console.WriteLine("Non ci sono prodotti");
+                return;
+            }
             if(prodotti.Count() == 0){
                 Console.WriteLine("Non ci sono Alimenti");
                 return;
@@ -107,6 +112,11 @@ namespace Leonardo_Sanna_TestWeek1
         private static void VisualizzaProdottiTecnologiciNuovi()
         {
             var prodotti = repoPT.GetAll();
+            if (prodotti == null)
+            {
+                Console.WriteLine("Non ci sono prodotti");
+                return;
+            }
             foreach (var p in prodotti)
             {
                 if (p.IsNew)
@@ -122,10 +132,20 @@ namespace Leonardo_Sanna_TestWeek1
         /// </summary>
         private static void CercaProdottoTecnologicoPerMarca()
         {
-            string marca;
+            string? marca;
             Console.WriteLine("Inserisci la marca da cercare ");
             marca = Console.ReadLine();
+            while (string.IsNullOrEmpty(marca))
+            {
+                Console.WriteLine("Inserisci la marca da cercare ");
+                marca = Console.ReadLine();
+            }
             var prodotti = repoPT.GetAll();
+            if(prodotti == null)
+            {
+                Console.WriteLine("Nessun prodotto tecnologico in da cercare");
+                return;
+            }
             foreach(var p in prodotti)
             {
                 if(p.Marca == marca)
@@ -142,10 +162,15 @@ namespace Leonardo_Sanna_TestWeek1
         /// </summary>
         private static void CercaProdottoAlimentarePerCodice()
         {
-            string codice;
-            ProdottoAlimentare find = new ProdottoAlimentare();
+            string? codice;
+            ProdottoAlimentare? find;
             Console.WriteLine("Inserisci il codice del prodotto da cercare");
             codice = Console.ReadLine();
+            while(string.IsNullOrEmpty(codice))
+            {
+                Console.WriteLine("Inserisci il codice del prodotto da cercare");
+                codice = Console.ReadLine();
+            }
             find = repoPA.GetTByCode(codice);
             if(find == null)
             {
@@ -165,15 +190,19 @@ namespace Leonardo_Sanna_TestWeek1
         /// </summary>
         private static void AggiungiProdottoAlimentare()
         {
-            string codice, data, descrizione;
+            string? codice, descrizione;
             double prezzo;
             DateTime datat;
-            bool error = true;
-            int quantita, anno, mese, giorno;
+            int quantita;
             do
             {
                 Console.WriteLine("Inserisci il codice del prodotto ");
                 codice = Console.ReadLine();
+                while (string.IsNullOrEmpty(codice))
+                {
+                    Console.WriteLine("Inserisci un codice valido");
+                    codice = Console.ReadLine();
+                }
                 Console.WriteLine("Inserisci il prezzo del prodotto ");
                 while (!double.TryParse(Console.ReadLine(), out prezzo))
                 {
@@ -181,6 +210,11 @@ namespace Leonardo_Sanna_TestWeek1
                 }
                 Console.WriteLine("Inserisci una breve descrizione del prodotto ");
                 descrizione = Console.ReadLine();
+                while (string.IsNullOrEmpty(descrizione))
+                {
+                    Console.WriteLine("Inserisci una descrizione valida");
+                    descrizione = Console.ReadLine();
+                }
                 Console.WriteLine("Inserisci la quantita' del prodotto ");
                 while (!int.TryParse(Console.ReadLine(), out quantita))
                 {
@@ -191,7 +225,6 @@ namespace Leonardo_Sanna_TestWeek1
                 {
                     Console.WriteLine("Inserisci un valore valido");
                 }
-                Console.WriteLine(datat);
             } while (!repoPA.Aggiungi(new ProdottoAlimentare(codice, prezzo, descrizione, quantita, datat)));
         }
         /// <summary>
@@ -199,13 +232,18 @@ namespace Leonardo_Sanna_TestWeek1
         /// </summary>
         private static void AggiungiProdottoTecnologico()
         {
-            string codice, descrizione, marca, stato;
+            string? codice, descrizione, marca, stato;
             double prezzo;
             bool cicla = true, statob = true;
             do
             {
                 Console.WriteLine("Inserisci il codice del prodotto ");
                 codice = Console.ReadLine();
+                while (string.IsNullOrEmpty(codice))
+                {
+                    Console.WriteLine("Inserisci un codice valido");
+                    codice = Console.ReadLine();
+                }
                 Console.WriteLine("Inserisci il prezzo del prodotto ");
                 while (!double.TryParse(Console.ReadLine(), out prezzo))
                 {
@@ -213,13 +251,27 @@ namespace Leonardo_Sanna_TestWeek1
                 }
                 Console.WriteLine("Inserisci una breve descrizione del prodotto ");
                 descrizione = Console.ReadLine();
+                while (string.IsNullOrEmpty(descrizione))
+                {
+                    Console.WriteLine("Inserisci una descrizione valida");
+                    descrizione = Console.ReadLine();
+                }
                 Console.WriteLine("Inserisci la marca del prodotto ");
                 marca = Console.ReadLine();
+                while (string.IsNullOrEmpty(marca))
+                {
+                    Console.WriteLine("Inserisci una marca valida");
+                    marca = Console.ReadLine();
+                }
                 Console.WriteLine("Inserisci lo stato del prodotto del prodotto (usato/nuovo)");
                 stato = Console.ReadLine();
                 while (cicla)
                 {
-                    stato = stato.ToLower();
+                    if (stato != null)
+                    {
+                        stato = stato.ToLower();
+                    }
+                    
                     if (stato == "nuovo")
                     {
                         statob = true;
@@ -244,9 +296,6 @@ namespace Leonardo_Sanna_TestWeek1
         /// </summary>
         private static void VisualizzaTuttiIProdotti()
         {
-            List<ProdottoAlimentare> prodottiPA = new List<ProdottoAlimentare>();
-            List<ProdottoTecnologico> prodottiPT = new List<ProdottoTecnologico>();
-            int n = 0;
             bool prodottiA, prodottiT;
             prodottiA = repoPA.IsVuota();
             prodottiT = repoPT.IsVuota();
@@ -263,40 +312,34 @@ namespace Leonardo_Sanna_TestWeek1
         /// </summary>
         public static void VisualizzaAlimentari()
         {
-
-            if (repoPA.IsVuota())
+            var alimentari = repoPA.GetAll();
+            if(alimentari == null)
             {
                 return;
             }
-            else
+            foreach (ProdottoAlimentare p in alimentari)
             {
-                var alimentari = repoPA.GetAll();
-                foreach (ProdottoAlimentare p in alimentari)
-                {
-                    Console.WriteLine("---------------------------------------------------------------------------------------");
-                    p.Informazioni();
-                    Console.WriteLine("---------------------------------------------------------------------------------------");
-                }
+                Console.WriteLine("---------------------------------------------------------------------------------------");
+                p.Informazioni();
+                Console.WriteLine("---------------------------------------------------------------------------------------");
             }
+            
         }
         /// <summary>
         /// Mostra a schermo tutti i Prodotti Tecnologici
         /// </summary>
         public static void VisualizzaTecnologici()
         {
-            if (repoPT.IsVuota())
+            var tecnologici = repoPT.GetAll();
+            if(tecnologici == null)
             {
                 return;
             }
-            else
+            foreach (ProdottoTecnologico p in tecnologici)
             {
-                var tecnologici = repoPT.GetAll();
-                foreach (ProdottoTecnologico p in tecnologici)
-                {
-                    Console.WriteLine("---------------------------------------------------------------------------------------");
-                    p.Informazioni();
-                    Console.WriteLine("---------------------------------------------------------------------------------------");
-                }
+                Console.WriteLine("---------------------------------------------------------------------------------------");
+                p.Informazioni();
+                Console.WriteLine("---------------------------------------------------------------------------------------");
             }
         }
         /// <summary>

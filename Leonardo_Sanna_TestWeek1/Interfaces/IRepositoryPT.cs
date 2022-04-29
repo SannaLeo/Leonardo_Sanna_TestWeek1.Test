@@ -9,8 +9,8 @@ namespace Leonardo_Sanna_TestWeek1.Interfaces
 {
     internal interface IRepositoryPT : IRepository<ProdottoTecnologico>
     {
-        List<ProdottoTecnologico> GetPTByMarca(string marca);
+        List<ProdottoTecnologico>? GetPTByMarca(string marca);
 
-        List<ProdottoTecnologico> GetPTNew();
+        List<ProdottoTecnologico>? GetPTNew();
     }
 }
