@@ -84,9 +84,10 @@ namespace Leonardo_Sanna_TestWeek1
         /// Visualizza solo i prodotti scaduti da n giorni
         /// </summary>
         /// <param name="giorni">int giorni dalla scadenza del prodotto</param>
-        private static void VisualizzaProdottiscadutiDaGiorni(int giorni)
+        private async static void VisualizzaProdottiscadutiDaGiorni(int giorni)
         {
-            var prodotti = repoPA.GetAll();
+            Task<List<ProdottoAlimentare>> prodottiTask = repoPA.GetAllAsync();
+            List<ProdottoAlimentare> prodotti = await prodottiTask;
             if(prodotti == null)
             {
                 Console.WriteLine("Non ci sono prodotti");
@@ -310,10 +311,11 @@ namespace Leonardo_Sanna_TestWeek1
         /// <summary>
         /// Mostra a schermo tutti i Prodotti Alimentari
         /// </summary>
-        public static void VisualizzaAlimentari()
+        public async static void VisualizzaAlimentari()
         {
-            var alimentari = repoPA.GetAll();
-            if(alimentari == null)
+            Task<List<ProdottoAlimentare>> prodottiTask = repoPA.GetAllAsync();
+            List<ProdottoAlimentare> alimentari = await prodottiTask;
+            if (alimentari == null)
             {
                 return;
             }
@@ -323,7 +325,6 @@ namespace Leonardo_Sanna_TestWeek1
                 p.Informazioni();
                 Console.WriteLine("---------------------------------------------------------------------------------------");
             }
-            
         }
         /// <summary>
         /// Mostra a schermo tutti i Prodotti Tecnologici

@@ -29,17 +29,30 @@ namespace Leonardo_Sanna_TestWeek1.Repository
                 return true;
             }
         }
+        public async Task<bool> AggiungiAsync(ProdottoAlimentare item)
+        {
+            if (item == null)
+            {
+                return false;
+            }
+            using (StreamWriter sw = new StreamWriter(path, true))
+            {
+                await sw.WriteLineAsync($"{item.Codice},{item.Prezzo},{item.QuantitaInMagazzino},{item.DataDiScadenza},{item.Descrizione}");
+                return true;
+            }
+        }
         /// <summary>
         /// Restituisce la lista presa da file
         /// </summary>
         /// <returns>Lista<ProdottoAlimentare> list se il file contiene degli elementi, List<ProdottoAlimentare> [] altrimenti</returns>
-        public List<ProdottoAlimentare> GetAll()
+        public async Task<List<ProdottoAlimentare>> GetAllAsync()
         {
             var list = new List<ProdottoAlimentare>();
             string contenuto;
             using (StreamReader sr = new StreamReader(path))
             {
-                contenuto = sr.ReadToEnd();
+                Task<string> contenutoTask = sr.ReadToEndAsync();
+                contenuto = await contenutoTask;
                 if (string.IsNullOrEmpty(contenuto))
                 {
                     return list;
@@ -76,6 +89,54 @@ namespace Leonardo_Sanna_TestWeek1.Repository
                         descrizione = prodotto[4];
                         //aggiungo alla lista
                         list.Add(new ProdottoAlimentare(codice,prezzo,descrizione,quantitam,data));
+                    }
+                }
+            }
+            return list;
+        }
+        public List<ProdottoAlimentare> GetAll()
+        {
+            var list = new List<ProdottoAlimentare>();
+            string contenuto;
+            using (StreamReader sr = new StreamReader(path))
+            {
+                contenuto = sr.ReadToEnd();
+                if (string.IsNullOrEmpty(contenuto))
+                {
+                    return list;
+                }
+                else
+                {
+                    //ottengo i prodotti
+                    var prodotti = contenuto.Split("\r\n");
+                    for (int i = 0; i < prodotti.Length - 1; i++)
+                    {
+                        string codice, descrizione;
+                        int quantitam;
+                        double prezzo;
+                        DateTime data;
+                        //ottengo i campi del prodotto
+                        var prodotto = prodotti[i].Split(',');
+                        //Controllo e assegno alle variabili corrispondenti
+                        codice = prodotto[0];
+                        if (!double.TryParse(prodotto[1], out prezzo))
+                        {
+                            Console.WriteLine("Errore nel caricamento da file ");
+                            return list;
+                        }
+                        if (!int.TryParse(prodotto[2], out quantitam))
+                        {
+                            Console.WriteLine("Errore nel caricamento da file ");
+                            return list;
+                        }
+                        if (!DateTime.TryParse(prodotto[3], out data))
+                        {
+                            Console.WriteLine("Errore nel caricamento da file ");
+                            return list;
+                        }
+                        descrizione = prodotto[4];
+                        //aggiungo alla lista
+                        list.Add(new ProdottoAlimentare(codice, prezzo, descrizione, quantitam, data));
                     }
                 }
             }

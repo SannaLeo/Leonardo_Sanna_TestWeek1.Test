@@ -76,5 +76,10 @@ namespace Leonardo_Sanna_TestWeek1.Repository
         {
             return (prodottiT.Count == 0);
         }
+
+        public Task<List<ProdottoTecnologico>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

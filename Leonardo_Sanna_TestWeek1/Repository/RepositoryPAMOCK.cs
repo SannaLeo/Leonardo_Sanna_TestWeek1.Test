@@ -102,5 +102,10 @@ namespace Leonardo_Sanna_TestWeek1.Repository
         {
             return (prodottiA.Count == 0);
         }
+
+        public Task<List<ProdottoAlimentare>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
