@@ -78,7 +78,13 @@ namespace Leonardo_Sanna_TestWeek1
         /// </summary>
         private static void VisualizzaAlimentariScadutiOggi()
         {
-            VisualizzaProdottiscadutiDaGiorni(0);
+            var prodotti = repoPA.GetAll().Where(p => p.GiorniAllaScadenza == 0);
+            foreach (var p in prodotti)
+            {
+                Console.WriteLine("---------------------------------------------------------------------------------------");
+                p.Informazioni();
+                Console.WriteLine("---------------------------------------------------------------------------------------");
+            }
         }
         /// <summary>
         /// Visualizza solo i prodotti scaduti da n giorni
@@ -86,25 +92,12 @@ namespace Leonardo_Sanna_TestWeek1
         /// <param name="giorni">int giorni dalla scadenza del prodotto</param>
         private async static void VisualizzaProdottiscadutiDaGiorni(int giorni)
         {
-            Task<List<ProdottoAlimentare>> prodottiTask = repoPA.GetAllAsync();
-            List<ProdottoAlimentare> prodotti = await prodottiTask;
-            if(prodotti == null)
+            var prodotti = repoPA.GetAll().Where(p => p.GiorniAllaScadenza <= 3);
+            foreach (var p in prodotti)
             {
-                Console.WriteLine("Non ci sono prodotti");
-                return;
-            }
-            if(prodotti.Count() == 0){
-                Console.WriteLine("Non ci sono Alimenti");
-                return;
-            }
-            foreach(var p in prodotti)
-            {
-                if(p.GiorniAllaScadenza == giorni)
-                {
-                    Console.WriteLine("---------------------------------------------------------------------------------------");
-                    p.Informazioni();
-                    Console.WriteLine("---------------------------------------------------------------------------------------");
-                }
+                Console.WriteLine("---------------------------------------------------------------------------------------");
+                p.Informazioni();
+                Console.WriteLine("---------------------------------------------------------------------------------------");
             }
         }
         /// <summary>
@@ -113,19 +106,12 @@ namespace Leonardo_Sanna_TestWeek1
         private static void VisualizzaProdottiTecnologiciNuovi()
         {
             var prodotti = repoPT.GetAll();
-            if (prodotti == null)
-            {
-                Console.WriteLine("Non ci sono prodotti");
-                return;
-            }
+            
             foreach (var p in prodotti)
             {
-                if (p.IsNew)
-                {
-                    Console.WriteLine("---------------------------------------------------------------------------------------");
-                    p.Informazioni();
-                    Console.WriteLine("---------------------------------------------------------------------------------------");
-                }
+                Console.WriteLine("---------------------------------------------------------------------------------------");
+                p.Informazioni();
+                Console.WriteLine("---------------------------------------------------------------------------------------");
             }
         }
         /// <summary>
@@ -319,12 +305,7 @@ namespace Leonardo_Sanna_TestWeek1
             {
                 return;
             }
-            foreach (ProdottoAlimentare p in alimentari)
-            {
-                Console.WriteLine("---------------------------------------------------------------------------------------");
-                p.Informazioni();
-                Console.WriteLine("---------------------------------------------------------------------------------------");
-            }
+            StampaListaProdottiA(alimentari);
         }
         /// <summary>
         /// Mostra a schermo tutti i Prodotti Tecnologici
@@ -336,12 +317,7 @@ namespace Leonardo_Sanna_TestWeek1
             {
                 return;
             }
-            foreach (ProdottoTecnologico p in tecnologici)
-            {
-                Console.WriteLine("---------------------------------------------------------------------------------------");
-                p.Informazioni();
-                Console.WriteLine("---------------------------------------------------------------------------------------");
-            }
+            StampaListaProdottiT(tecnologici);
         }
         /// <summary>
         /// Visualizza il menu e restituisce la scelta dell'utente
@@ -368,6 +344,25 @@ namespace Leonardo_Sanna_TestWeek1
                 Console.WriteLine("Riprova. Devi inserire un numero intero.");
             }
             return sceltaUtente;
+        }
+
+        public static void StampaListaProdottiA(List<ProdottoAlimentare> prodotti)
+        {
+            foreach (var p in prodotti)
+            {
+                Console.WriteLine("---------------------------------------------------------------------------------------");
+                p.Informazioni();
+                Console.WriteLine("---------------------------------------------------------------------------------------");
+            }
+        }
+        public static void StampaListaProdottiT(List<ProdottoTecnologico> prodotti)
+        {
+            foreach (var p in prodotti)
+            {
+                Console.WriteLine("---------------------------------------------------------------------------------------");
+                p.Informazioni();
+                Console.WriteLine("---------------------------------------------------------------------------------------");
+            }
         }
     }
 }

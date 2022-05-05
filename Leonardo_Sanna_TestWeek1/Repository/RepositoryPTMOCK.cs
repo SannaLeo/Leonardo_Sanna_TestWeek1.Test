@@ -18,14 +18,7 @@ namespace Leonardo_Sanna_TestWeek1.Repository
         
         public ProdottoTecnologico? GetTByCode(string id)
         {
-            foreach (ProdottoTecnologico itemT in prodottiT)
-            {
-                if (itemT.Codice == id)
-                {
-                    return itemT;
-                }
-            }
-            return null;
+            return prodottiT.FirstOrDefault(p => p.Codice == id);
         }
 
         public bool Aggiungi(ProdottoTecnologico item)
@@ -48,28 +41,12 @@ namespace Leonardo_Sanna_TestWeek1.Repository
 
         public List<ProdottoTecnologico> GetPTByMarca(string marca)
         {
-            List<ProdottoTecnologico> filteredPT = new List<ProdottoTecnologico>();
-            foreach(ProdottoTecnologico item in prodottiT)
-            {
-                if(item.Marca == marca)
-                {
-                    filteredPT.Add(item);
-                }
-            }
-            return filteredPT;
+            return prodottiT.Where(p => p.Marca==marca).ToList();
         }
 
         public List<ProdottoTecnologico> GetPTNew()
         {
-            List<ProdottoTecnologico> filteredPT = new List<ProdottoTecnologico>();
-            foreach (ProdottoTecnologico item in prodottiT)
-            {
-                if (item.IsNew)
-                {
-                    filteredPT.Add(item);
-                }
-            }
-            return filteredPT;
+            return prodottiT.Where(p => p.IsNew).ToList();
         }
 
         public bool IsVuota()

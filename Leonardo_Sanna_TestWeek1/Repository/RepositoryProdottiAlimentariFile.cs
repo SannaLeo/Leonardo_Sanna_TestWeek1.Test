@@ -148,16 +148,7 @@ namespace Leonardo_Sanna_TestWeek1.Repository
         /// <returns>Lista<ProdottoAlimentare> list contenente i prodotti quasi scaduti, List<ProdottoAlimentare> [] altrimenti</returns>
         public List<ProdottoAlimentare> GetPAAlmostExp()
         {
-            var list = GetAll();
-            var filtered = new List<ProdottoAlimentare>();
-            foreach(var item in list)
-            {
-                if (item.GiorniAllaScadenza <= 3)
-                {
-                    filtered.Add(item);
-                }
-            }
-            return filtered;
+            return GetAll().Where(p => p.GiorniAllaScadenza <= 3).ToList();
         }
         /// <summary>
         /// Restituisce tutti gli elementi scaduti
@@ -165,16 +156,7 @@ namespace Leonardo_Sanna_TestWeek1.Repository
         /// <returns>Lista<ProdottoAlimentare> list contenente i prodotti scaduti, List<ProdottoAlimentare> [] altrimenti</returns>
         public List<ProdottoAlimentare> GetPAExp()
         {
-            var list = GetAll();
-            var filtered = new List<ProdottoAlimentare>();
-            foreach (var item in list)
-            {
-                if (item.GiorniAllaScadenza <= 0)
-                {
-                    filtered.Add(item);
-                }
-            }
-            return filtered;
+            return GetAll().Where(p => p.GiorniAllaScadenza == 0).ToList();
         }
         /// <summary>
         /// Restituisce il prodotto alimentare con l'id specificato
@@ -182,16 +164,8 @@ namespace Leonardo_Sanna_TestWeek1.Repository
         /// <param name="id">stringa dell'id</param>
         /// <returns>ProdottoAlimentare item se viene trovato, null altrimenti</returns>
         public ProdottoAlimentare? GetTByCode(string id)
-        {
-            var list = GetAll();
-            foreach (var item in list)
-            {
-                if (item.Codice == id)
-                {
-                    return item;
-                }
-            }
-            return null;
+        { 
+            return GetAll().FirstOrDefault(p => p.Codice == id);
         }
         /// <summary>
         /// Controlla se la lista di elementi è vuota
@@ -199,8 +173,7 @@ namespace Leonardo_Sanna_TestWeek1.Repository
         /// <returns>true se la lista è vuota, false altrimenti</returns>
         public bool IsVuota()
         {
-            var list = GetAll();
-            return (list.Count == 0);
+            return (GetAll().Count == 0);
         }
     }
 }

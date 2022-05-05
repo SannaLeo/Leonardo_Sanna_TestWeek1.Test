@@ -5,6 +5,6 @@ using Leonardo_Sanna_TestWeek1.Interfaces;
 using Leonardo_Sanna_TestWeek1.Repository;
 
 IRepository<ProdottoAlimentare> repopa = new RepositoryProdottiAlimentariFile();
-//GestioneNegozio.Start();
+GestioneNegozio.Start();
 Task<List<ProdottoAlimentare>> prodottiTask = repopa.GetAllAsync();
 var prodotti = await prodottiTask;
